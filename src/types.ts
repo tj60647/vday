@@ -22,6 +22,15 @@ export type StationeryTheme =
 
 export type CardFontStyle = 'serif' | 'script' | 'vibes' | 'sans';
 
+export interface PuppyIllustration {
+  enabled: boolean;
+  style: 'gothic-charcoal';
+  variant: 'rose-companion' | 'moonlit-devotion';
+  title: string;
+  caption: string;
+  placement: 'cover' | 'inside' | 'both';
+}
+
 export interface CardDraft {
   id: string;
   title: string;
@@ -38,6 +47,7 @@ export interface CardDraft {
   fontStyle: CardFontStyle;
   createdAt: string;
   partnerName: string;
+  puppyIllustration?: PuppyIllustration;
 }
 
 export interface CardPromptInput {

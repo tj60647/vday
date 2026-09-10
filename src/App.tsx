@@ -49,6 +49,14 @@ const INITIAL_CARDS: CardDraft[] = [
     fontStyle: 'serif',
     createdAt: new Date().toISOString(),
     partnerName: 'Maya',
+    puppyIllustration: {
+      enabled: true,
+      style: 'gothic-charcoal',
+      variant: 'rose-companion',
+      title: 'The Faithful Hound & Crimson Rose',
+      caption: 'Gothic charcoal etching: a devoted puppy guarding our quiet Sunday mornings and old jazz records',
+      placement: 'cover',
+    },
   },
   {
     id: 'initial-2',
@@ -66,6 +74,14 @@ const INITIAL_CARDS: CardDraft[] = [
     fontStyle: 'sans',
     createdAt: new Date().toISOString(),
     partnerName: 'Maya',
+    puppyIllustration: {
+      enabled: true,
+      style: 'gothic-charcoal',
+      variant: 'rose-companion',
+      title: 'Partner In Crime',
+      caption: 'Gothic charcoal sketch: devoted through every adventure and garlic bread mishap',
+      placement: 'cover',
+    },
   },
   {
     id: 'initial-3',
@@ -83,6 +99,14 @@ const INITIAL_CARDS: CardDraft[] = [
     fontStyle: 'script',
     createdAt: new Date().toISOString(),
     partnerName: 'Maya',
+    puppyIllustration: {
+      enabled: true,
+      style: 'gothic-charcoal',
+      variant: 'moonlit-devotion',
+      title: 'Moonlit Devotion',
+      caption: 'Gothic charcoal study: two devoted souls resting beneath the arch, whispering of Portugal and forever',
+      placement: 'both',
+    },
   },
 ];
 

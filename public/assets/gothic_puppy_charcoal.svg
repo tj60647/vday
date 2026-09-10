@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <!-- Charcoal paper grain & smudge texture filter -->
+    <filter id="charcoal-grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.45 0" result="contrastNoise" />
+      <feComposite in="SourceGraphic" in2="contrastNoise" operator="in" result="texturedGraphic" />
+      <feBlend in="SourceGraphic" in2="texturedGraphic" mode="multiply" />
+    </filter>
+
+    <filter id="smudge" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feTurbulence type="turbulence" baseFrequency="0.08" numOctaves="3" result="rough" />
+      <feDisplacementMap in="blur" in2="rough" scale="4" xChannelSelector="R" yChannelSelector="G" result="smudged" />
+      <feMerge>
+        <feMergeNode in="smudged" />
+        <feMergeNode in="SourceGraphic" opacity="0.85" />
+      </feMerge>
+    </filter>
+
+    <!-- Radial vignette shadow for Gothic mood -->
+    <radialGradient id="gothic-vignette" cx="50%" cy="48%" r="50%">
+      <stop offset="0%" stop-color="#f5f2eb" stop-opacity="0" />
+      <stop offset="60%" stop-color="#3a3430" stop-opacity="0.15" />
+      <stop offset="88%" stop-color="#1e1a17" stop-opacity="0.65" />
+      <stop offset="100%" stop-color="#0f0c0a" stop-opacity="0.95" />
+    </radialGradient>
+
+    <!-- Deep Charcoal Shading Gradients -->
+    <radialGradient id="charcoal-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#151312" />
+      <stop offset="70%" stop-color="#2a2624" />
+      <stop offset="100%" stop-color="#4a423e" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="rose-charcoal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#54121a" />
+      <stop offset="40%" stop-color="#330b10" />
+      <stop offset="100%" stop-color="#140608" />
+    </linearGradient>
+
+    <pattern id="crosshatch" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M-2,2 L10,-10 M0,8 L8,0 M-2,10 L10,-2" stroke="#1f1b18" stroke-width="0.75" opacity="0.35" />
+      <path d="M-2,-2 L10,10 M0,0 L8,8 M-2,6 L6,14" stroke="#1f1b18" stroke-width="0.5" opacity="0.2" />
+    </pattern>
+  </defs>
+
+  <!-- Background: Antiqued Charcoal Parchment Tone -->
+  <rect width="600" height="600" fill="#ede8df" />
+  <rect width="600" height="600" fill="url(#crosshatch)" opacity="0.3" />
+
+  <!-- Gothic Arch & Victorian Filigree Border -->
+  <g filter="url(#smudge)">
+    <!-- Arch outer frame -->
+    <path d="M 60,550 L 60,260 C 60,130 180,60 300,50 C 420,60 540,130 540,260 L 540,550 Z" 
+          fill="none" stroke="#221e1a" stroke-width="6" stroke-linecap="round" />
+    <!-- Arch inner frame -->
+    <path d="M 75,540 L 75,265 C 75,145 185,75 300,68 C 415,75 525,145 525,265 L 525,540 Z" 
+          fill="none" stroke="#36302a" stroke-width="2" stroke-dasharray="8,4" />
+    
+    <!-- Gothic Pinnacle Trefoil Accents at top -->
+    <path d="M 300,28 L 306,44 L 294,44 Z M 300,42 Q 285,60 300,75 Q 315,60 300,42" fill="#221e1a" />
+    <!-- Flourishes on arch shoulders -->
+    <path d="M 120,200 Q 150,160 170,180 Q 140,210 120,200" fill="#221e1a" opacity="0.7" />
+    <path d="M 480,200 Q 450,160 430,180 Q 460,210 480,200" fill="#221e1a" opacity="0.7" />
+  </g>
+
+  <!-- Charcoal Ground Shadow under Puppy -->
+  <ellipse cx="300" cy="515" rx="190" ry="32" fill="url(#charcoal-shadow)" opacity="0.85" filter="url(#smudge)" />
+
+  <!-- === THE GOTHIC CHARCOAL PUPPY === -->
+  <g filter="url(#charcoal-grain)" id="puppy-figure">
+
+    <!-- Body & Torso Charcoal Mass -->
+    <path d="M 230,360 C 200,390 180,450 195,505 C 210,515 390,515 405,505 C 420,450 400,390 370,360 C 350,380 250,380 230,360 Z" 
+          fill="#1c1917" />
+    
+    <!-- Heavy charcoal texture shading on body -->
+    <path d="M 205,430 C 220,470 250,500 300,505 C 350,500 380,470 395,430 C 380,460 340,490 300,490 C 260,490 220,460 205,430 Z" 
+          fill="#0d0c0b" opacity="0.9" />
+
+    <!-- Puppy Chest & Front Paws with Charcoal Crosshatching -->
+    <!-- Left Paw -->
+    <ellipse cx="255" cy="505" rx="30" ry="18" fill="#23201d" stroke="#0f0e0d" stroke-width="2" />
+    <path d="M 245,505 L 245,516 M 265,505 L 265,516" stroke="#0f0e0d" stroke-width="2.5" stroke-linecap="round" />
+    
+    <!-- Right Paw -->
+    <ellipse cx="345" cy="505" rx="30" ry="18" fill="#23201d" stroke="#0f0e0d" stroke-width="2" />
+    <path d="M 335,505 L 335,516 M 355,505 L 355,516" stroke="#0f0e0d" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Fluffy Chest Tuft (Charcoal Hatching strokes) -->
+    <path d="M 270,370 Q 300,420 285,450 Q 300,430 315,450 Q 300,410 330,370" 
+          fill="#332e29" stroke="#12100f" stroke-width="3" stroke-linecap="round" />
+    <path d="M 285,390 Q 300,425 295,445 M 310,390 Q 300,425 305,445" 
+          stroke="#524a43" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Puppy Head (Tilted slightly in adorable devotion) -->
+    <g transform="rotate(-3 300 270)">
+      
+      <!-- Back Head Base -->
+      <ellipse cx="300" cy="270" rx="90" ry="85" fill="#1e1b19" />
+      
+      <!-- Charcoal smudged fur crown -->
+      <path d="M 240,210 Q 300,185 360,210 Q 340,195 300,190 Q 260,195 240,210 Z" fill="#0f0e0d" />
+
+      <!-- Floppy Gothic Ears (Velvety, long spaniel/retriever mix ears) -->
+      <!-- Left Ear -->
+      <path d="M 225,230 C 170,250 145,340 180,410 C 200,420 215,390 225,350 C 230,310 228,260 225,230 Z" 
+            fill="#141211" stroke="#080706" stroke-width="3" filter="url(#smudge)" />
+      <!-- Left Ear texture highlights -->
+      <path d="M 185,290 C 170,340 185,380 195,400" stroke="#3d3732" stroke-width="3" fill="none" stroke-linecap="round" />
+
+      <!-- Right Ear -->
+      <path d="M 375,230 C 430,250 455,340 420,410 C 400,420 385,390 375,350 C 370,310 372,260 375,230 Z" 
+            fill="#141211" stroke="#080706" stroke-width="3" filter="url(#smudge)" />
+      <!-- Right Ear texture highlights -->
+      <path d="M 415,290 C 430,340 415,380 405,400" stroke="#3d3732" stroke-width="3" fill="none" stroke-linecap="round" />
+
+      <!-- Snout & Muzzle Area -->
+      <ellipse cx="300" cy="300" rx="46" ry="38" fill="#2d2925" />
+      <!-- Muzzle shadow drop -->
+      <path d="M 270,315 C 285,335 315,335 330,315 C 315,325 285,325 270,315 Z" fill="#0f0d0c" />
+
+      <!-- Puppy Nose (Wet, dark charcoal with bright white highlight) -->
+      <path d="M 285,280 C 285,273 315,273 315,280 C 315,294 304,302 300,302 C 296,302 285,294 285,280 Z" 
+            fill="#080707" stroke="#000000" stroke-width="1.5" />
+      <!-- Nose shine reflection -->
+      <ellipse cx="294" cy="278" rx="3.5" ry="2" fill="#f0ebe1" opacity="0.8" />
+      <!-- Nose center groove -->
+      <line x1="300" y1="288" x2="300" y2="306" stroke="#000000" stroke-width="2" />
+      <!-- Mouth line holding the rose -->
+      <path d="M 280,312 Q 300,320 320,312" fill="none" stroke="#080707" stroke-width="3.5" stroke-linecap="round" />
+
+      <!-- Expressive Soulful Eyes (Large, loving, poignant gothic eyes) -->
+      <!-- Left Eye -->
+      <g id="left-eye">
+        <ellipse cx="260" cy="255" rx="16" ry="17" fill="#080706" />
+        <!-- Warm sepia iris rim -->
+        <circle cx="260" cy="255" r="13" fill="#291f17" />
+        <circle cx="261" cy="255" r="9" fill="#0d0a08" />
+        <!-- Big glistening catchlights (creates the irresistible sweet puppy gaze) -->
+        <circle cx="256" cy="250" r="5" fill="#ffffff" />
+        <circle cx="264" cy="259" r="2.2" fill="#ffffff" opacity="0.85" />
+        <!-- Expressive furrowed brow arch -->
+        <path d="M 242,240 Q 262,230 276,238" fill="none" stroke="#0f0d0c" stroke-width="4.5" stroke-linecap="round" />
+      </g>
+
+      <!-- Right Eye -->
+      <g id="right-eye">
+        <ellipse cx="340" cy="255" rx="16" ry="17" fill="#080706" />
+        <!-- Warm sepia iris rim -->
+        <circle cx="340" cy="255" r="13" fill="#291f17" />
+        <circle cx="339" cy="255" r="9" fill="#0d0a08" />
+        <!-- Big glistening catchlights -->
+        <circle cx="336" cy="250" r="5" fill="#ffffff" />
+        <circle cx="344" cy="259" r="2.2" fill="#ffffff" opacity="0.85" />
+        <!-- Expressive furrowed brow arch -->
+        <path d="M 324,238 Q 338,230 358,240" fill="none" stroke="#0f0d0c" stroke-width="4.5" stroke-linecap="round" />
+      </g>
+
+      <!-- Forehead gentle markings -->
+      <path d="M 292,215 Q 300,245 308,215" fill="none" stroke="#12100f" stroke-width="2.5" opacity="0.6" />
+
+      <!-- === GOTHIC VELVET ROSE HELD IN MOUTH === -->
+      <g id="gothic-rose" transform="translate(0, 5)">
+        <!-- Thorny stem passing through puppy mouth -->
+        <path d="M 220,335 Q 260,318 300,312 Q 340,308 375,320" 
+              fill="none" stroke="#1e221b" stroke-width="4.5" stroke-linecap="round" />
+        
+        <!-- Thorns -->
+        <path d="M 255,325 L 250,332 M 330,314 L 335,322 M 235,330 L 232,338" 
+              stroke="#151713" stroke-width="2.5" stroke-linecap="round" />
+
+        <!-- Rose Leaves -->
+        <path d="M 225,335 C 205,330 195,350 205,358 C 220,358 230,345 225,335 Z" 
+          fill="#1b2118" stroke="#0e120d" stroke-width="1.5" />
+        <path d="M 205,348 L 220,340" stroke="#2d3829" stroke-width="1" />
+
+        <!-- Deep Crimson-Black Gothic Rose Blossom -->
+        <g transform="translate(165, 290) rotate(-15)">
+          <!-- Outer Shadow Petals -->
+          <path d="M 30,35 C 10,40 5,60 20,70 C 40,75 55,60 50,45 Z" fill="#220508" stroke="#0f0203" stroke-width="1.5" />
+          <path d="M 35,25 C 20,10 5,25 15,45 C 30,50 45,40 35,25 Z" fill="#36080e" stroke="#120204" stroke-width="1.5" />
+          <path d="M 45,30 C 60,15 75,30 65,50 C 50,55 40,40 45,30 Z" fill="#420b12" stroke="#120204" stroke-width="1.5" />
+          <!-- Rose Core Petals (Velvet Crimson) -->
+          <path d="M 28,38 C 20,48 35,62 48,58 C 55,50 50,38 40,36 Z" fill="url(#rose-charcoal)" stroke="#1a0407" stroke-width="1.5" />
+          <path d="M 34,42 C 30,48 40,55 46,50 C 48,45 42,40 36,42 Z" fill="#691520" stroke="#2b070c" stroke-width="1" />
+          <circle cx="39" cy="46" r="3.5" fill="#871b29" opacity="0.8" />
+          
+          <!-- Subtle fallen petals floating down -->
+          <path d="M 30,85 C 25,92 35,98 40,94 C 42,88 35,82 30,85 Z" fill="#3b080f" opacity="0.75" />
+        </g>
+      </g>
+
+    </g> <!-- end tilted head -->
+
+    <!-- Charcoal crosshatch hand-drawn shading accents across puppy -->
+    <g opacity="0.3" stroke="#0a0908" stroke-width="1" stroke-linecap="round">
+      <line x1="260" y1="380" x2="275" y2="400" />
+      <line x1="265" y1="380" x2="280" y2="400" />
+      <line x1="270" y1="380" x2="285" y2="400" />
+      <line x1="325" y1="380" x2="340" y2="400" />
+      <line x1="330" y1="380" x2="345" y2="400" />
+      <line x1="335" y1="380" x2="350" y2="400" />
+    </g>
+
+  </g> <!-- end puppy figure -->
+
+  <!-- Charcoal Vignette Border Overlay -->
+  <rect width="600" height="600" fill="url(#gothic-vignette)" pointer-events="none" />
+
+  <!-- Bottom Victorian Calligraphy Ribbon & Title -->
+  <g transform="translate(300, 562)">
+    <path d="M -160,-14 L -130,-22 L 130,-22 L 160,-14 L 140,2 L 110,6 L -110,6 L -140,2 Z" 
+          fill="#191614" stroke="#423932" stroke-width="1.5" />
+    <text x="0" y="-4" 
+          font-family="'Cormorant Garamond', 'Georgia', serif" 
+          font-size="14" 
+          font-style="italic" 
+          font-weight="600" 
+          letter-spacing="2.5" 
+          fill="#ded7cb" 
+          text-anchor="middle">
+      DEVOTION • UNCONDITIONAL
+    </text>
+  </g>
+</svg>

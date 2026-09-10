@@ -114,6 +114,16 @@ function generateFallbackCards(input: any) {
       fontStyle: 'serif',
       createdAt: new Date().toISOString(),
       partnerName: name,
+      puppyIllustration: {
+        enabled: true,
+        style: 'gothic-charcoal',
+        variant: 'rose-companion',
+        title: 'The Faithful Hound & Rose',
+        caption: input.favoriteMemories
+          ? `Gothic charcoal study: a devoted puppy guarding our memory of ${input.favoriteMemories}`
+          : `Gothic charcoal sketch: unconditional devotion created for ${name}`,
+        placement: 'cover',
+      },
     },
     {
       id: `card-crafted-2-${Date.now()}`,
@@ -131,6 +141,16 @@ function generateFallbackCards(input: any) {
       fontStyle: 'sans',
       createdAt: new Date().toISOString(),
       partnerName: name,
+      puppyIllustration: {
+        enabled: true,
+        style: 'gothic-charcoal',
+        variant: 'rose-companion',
+        title: 'Partner In Crime',
+        caption: input.insideJokes
+          ? `Gothic charcoal sketch: cheeky, loving, and never apologizing for ${input.insideJokes}`
+          : `Gothic charcoal drawing: your most loyal companion through every adventure`,
+        placement: 'cover',
+      },
     },
     {
       id: `card-crafted-3-${Date.now()}`,
@@ -148,6 +168,14 @@ function generateFallbackCards(input: any) {
       fontStyle: 'script',
       createdAt: new Date().toISOString(),
       partnerName: name,
+      puppyIllustration: {
+        enabled: true,
+        style: 'gothic-charcoal',
+        variant: 'moonlit-devotion',
+        title: 'Moonlit Devotion',
+        caption: `Gothic charcoal etching: two devoted souls resting beneath the arch, where every heartbeat whispers of forever`,
+        placement: 'both',
+      },
     },
   ];
 }
@@ -243,7 +271,9 @@ Provide 3 complete drafts, each with:
 - tone: Tone category
 - format: Card format category
 - recommendedTheme: One of "blush-rose", "vintage-parchment", "midnight-gold", "clean-linen", "botanical-sage"
-- recommendedFontStyle: One of "serif", "script", "vibes", "sans"`;
+- recommendedFontStyle: One of "serif", "script", "vibes", "sans"
+- puppyIllustrationTitle: A poetic title for a gothic charcoal puppy drawing (e.g., "The Faithful Hound", "Guardian of Our Sundays", "Moonlit Devotion")
+- puppyIllustrationCaption: A 1-2 sentence caption interpreting the gothic charcoal puppy illustration directly in the context of this letter's specific memories or feelings`;
 
   try {
     const { response, modelUsed } = await generateContentWithFallback(ai, {
@@ -271,6 +301,8 @@ Provide 3 complete drafts, each with:
                   format: { type: Type.STRING },
                   recommendedTheme: { type: Type.STRING },
                   recommendedFontStyle: { type: Type.STRING },
+                  puppyIllustrationTitle: { type: Type.STRING },
+                  puppyIllustrationCaption: { type: Type.STRING },
                 },
                 required: ['title', 'coverHeadline', 'salutation', 'body', 'closing'],
               },
@@ -298,6 +330,14 @@ Provide 3 complete drafts, each with:
       fontStyle: card.recommendedFontStyle || (idx === 2 ? 'script' : 'serif'),
       createdAt: new Date().toISOString(),
       partnerName,
+      puppyIllustration: {
+        enabled: true,
+        style: 'gothic-charcoal',
+        variant: idx === 2 ? 'moonlit-devotion' : 'rose-companion',
+        title: card.puppyIllustrationTitle || (idx === 2 ? 'Moonlit Devotion' : 'The Faithful Hound & Rose'),
+        caption: card.puppyIllustrationCaption || `Gothic charcoal study: eternal loyalty and deep affection for ${partnerName}`,
+        placement: idx === 2 ? 'both' : 'cover',
+      },
     }));
 
     if (!cards.length) {

@@ -16,7 +16,8 @@ import {
   Heart,
   FileText
 } from 'lucide-react';
-import { CardDraft, StationeryTheme, CardFontStyle } from '../types';
+import { CardDraft, StationeryTheme, CardFontStyle, PuppyIllustration } from '../types';
+import { GothicPuppyIllustration } from './GothicPuppyIllustration';
 
 interface CardPreviewProps {
   cards: CardDraft[];
@@ -122,6 +123,33 @@ export const CardPreview: React.FC<CardPreviewProps> = ({
 
   const isDarkTheme = card.stationeryTheme === 'midnight-gold';
 
+  const puppyIll: PuppyIllustration = card.puppyIllustration || {
+    enabled: true,
+    style: 'gothic-charcoal',
+    variant: 'rose-companion',
+    title: 'The Faithful Hound',
+    caption: `Gothic charcoal study: guarding our love and cherished memories for ${card.partnerName}`,
+    placement: 'cover',
+  };
+
+  const updatePuppyIllustration = (updates: Partial<PuppyIllustration>) => {
+    const current = card.puppyIllustration || {
+      enabled: true,
+      style: 'gothic-charcoal',
+      variant: 'rose-companion',
+      title: 'The Faithful Hound',
+      caption: `Gothic charcoal study: guarding our love and cherished memories for ${card.partnerName}`,
+      placement: 'cover',
+    };
+    onUpdateCard({
+      ...card,
+      puppyIllustration: {
+        ...current,
+        ...updates,
+      },
+    });
+  };
+
   return (
     <div id="card-preview-container" className="space-y-4">
       {/* Top Options Bar: Switch between Draft 1, 2, 3 */}
@@ -184,49 +212,140 @@ export const CardPreview: React.FC<CardPreviewProps> = ({
       </div>
 
       {/* Style & Stationery Controls */}
-      <div className="bg-white rounded-2xl border border-stone-200 px-4 py-3 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
-        {/* Stationery Theme */}
-        <div className="flex items-center gap-2">
-          <Palette className="w-3.5 h-3.5 text-stone-500" />
-          <span className="text-stone-500 font-medium">Stationery:</span>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {THEMES.map((theme) => (
-              <button
-                key={theme.id}
-                type="button"
-                onClick={() => updateField('stationeryTheme', theme.id)}
-                className={`px-2 py-1 rounded-lg text-[11px] transition-all border ${
-                  card.stationeryTheme === theme.id
-                    ? 'border-rose-400 bg-rose-50 text-rose-900 font-medium shadow-2xs'
-                    : 'border-stone-200 text-stone-600 hover:bg-stone-50'
-                }`}
-              >
-                {theme.label}
-              </button>
-            ))}
+      <div className="bg-white rounded-2xl border border-stone-200 px-4 py-3 shadow-xs space-y-2.5 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {/* Stationery Theme */}
+          <div className="flex items-center gap-2">
+            <Palette className="w-3.5 h-3.5 text-stone-500" />
+            <span className="text-stone-500 font-medium">Stationery:</span>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {THEMES.map((theme) => (
+                <button
+                  key={theme.id}
+                  type="button"
+                  onClick={() => updateField('stationeryTheme', theme.id)}
+                  className={`px-2 py-1 rounded-lg text-[11px] transition-all border ${
+                    card.stationeryTheme === theme.id
+                      ? 'border-rose-400 bg-rose-50 text-rose-900 font-medium shadow-2xs'
+                      : 'border-stone-200 text-stone-600 hover:bg-stone-50'
+                  }`}
+                >
+                  {theme.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Font Style */}
+          <div className="flex items-center gap-2">
+            <Type className="w-3.5 h-3.5 text-stone-500" />
+            <span className="text-stone-500 font-medium">Font:</span>
+            <div className="flex items-center gap-1">
+              {FONTS.map((font) => (
+                <button
+                  key={font.id}
+                  type="button"
+                  onClick={() => updateField('fontStyle', font.id)}
+                  className={`px-2 py-1 rounded-lg text-[11px] transition-all border ${
+                    card.fontStyle === font.id
+                      ? 'border-rose-400 bg-rose-50 text-rose-900 font-medium shadow-2xs'
+                      : 'border-stone-200 text-stone-600 hover:bg-stone-50'
+                  }`}
+                >
+                  {font.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Font Style */}
-        <div className="flex items-center gap-2">
-          <Type className="w-3.5 h-3.5 text-stone-500" />
-          <span className="text-stone-500 font-medium">Font:</span>
-          <div className="flex items-center gap-1">
-            {FONTS.map((font) => (
-              <button
-                key={font.id}
-                type="button"
-                onClick={() => updateField('fontStyle', font.id)}
-                className={`px-2 py-1 rounded-lg text-[11px] transition-all border ${
-                  card.fontStyle === font.id
-                    ? 'border-rose-400 bg-rose-50 text-rose-900 font-medium shadow-2xs'
-                    : 'border-stone-200 text-stone-600 hover:bg-stone-50'
-                }`}
-              >
-                {font.label}
-              </button>
-            ))}
+        {/* Gothic Puppy Charcoal Illustration Setting Bar */}
+        <div className="pt-2 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              id="toggle-puppy-illustration-btn"
+              onClick={() => updatePuppyIllustration({ enabled: !puppyIll.enabled })}
+              className={`px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors border ${
+                puppyIll.enabled
+                  ? 'bg-stone-900 text-white border-stone-900'
+                  : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'
+              }`}
+            >
+              <span>🐾</span>
+              <span>Gothic Puppy Charcoal Art</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${puppyIll.enabled ? 'bg-rose-500 text-white' : 'bg-stone-200 text-stone-600'}`}>
+                {puppyIll.enabled ? 'On' : 'Off'}
+              </span>
+            </button>
           </div>
+
+          {puppyIll.enabled && (
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Variant choice */}
+              <div className="flex items-center gap-1 bg-stone-100 p-0.5 rounded-lg text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => updatePuppyIllustration({ variant: 'rose-companion' })}
+                  className={`px-2 py-0.5 rounded-md transition-all ${
+                    puppyIll.variant === 'rose-companion'
+                      ? 'bg-white text-stone-900 shadow-2xs font-medium'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Hound & Rose
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updatePuppyIllustration({ variant: 'moonlit-devotion' })}
+                  className={`px-2 py-0.5 rounded-md transition-all ${
+                    puppyIll.variant === 'moonlit-devotion'
+                      ? 'bg-white text-stone-900 shadow-2xs font-medium'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Moonlit Duo
+                </button>
+              </div>
+
+              {/* Placement choice */}
+              <div className="flex items-center gap-1 bg-stone-100 p-0.5 rounded-lg text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => updatePuppyIllustration({ placement: 'cover' })}
+                  className={`px-2 py-0.5 rounded-md transition-all ${
+                    puppyIll.placement === 'cover'
+                      ? 'bg-white text-stone-900 shadow-2xs font-medium'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Cover
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updatePuppyIllustration({ placement: 'inside' })}
+                  className={`px-2 py-0.5 rounded-md transition-all ${
+                    puppyIll.placement === 'inside'
+                      ? 'bg-white text-stone-900 shadow-2xs font-medium'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Inside
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updatePuppyIllustration({ placement: 'both' })}
+                  className={`px-2 py-0.5 rounded-md transition-all ${
+                    puppyIll.placement === 'both'
+                      ? 'bg-white text-stone-900 shadow-2xs font-medium'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Both
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -337,12 +456,27 @@ export const CardPreview: React.FC<CardPreviewProps> = ({
                 ✦ ✧ ✦
               </div>
 
-              {/* Central Heart Emblem */}
-              <div className="mb-6">
-                <div className={`w-14 h-14 rounded-full border border-dashed ${currentTheme.borderClass} flex items-center justify-center mx-auto mb-2`}>
-                  <Heart className={`w-7 h-7 fill-current ${currentTheme.accentClass} opacity-80`} />
+              {/* Central Illustration or Heart Emblem */}
+              {puppyIll.enabled && (puppyIll.placement === 'cover' || puppyIll.placement === 'both') ? (
+                <div className="w-full">
+                  <GothicPuppyIllustration
+                    illustration={puppyIll}
+                    context="cover"
+                    partnerName={card.partnerName}
+                    letterTopic={card.title}
+                    isDarkTheme={isDarkTheme}
+                    isEditing={isEditingDirectly}
+                    onUpdateTitle={(title) => updatePuppyIllustration({ title })}
+                    onUpdateCaption={(caption) => updatePuppyIllustration({ caption })}
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="mb-6">
+                  <div className={`w-14 h-14 rounded-full border border-dashed ${currentTheme.borderClass} flex items-center justify-center mx-auto mb-2`}>
+                    <Heart className={`w-7 h-7 fill-current ${currentTheme.accentClass} opacity-80`} />
+                  </div>
+                </div>
+              )}
 
               {/* Cover Headline */}
               {isEditingDirectly ? (
@@ -398,7 +532,7 @@ export const CardPreview: React.FC<CardPreviewProps> = ({
               </div>
 
               {/* Salutation / Opening */}
-              <div className="mb-6">
+              <div className="mb-4">
                 {isEditingDirectly ? (
                   <input
                     type="text"
@@ -416,6 +550,22 @@ export const CardPreview: React.FC<CardPreviewProps> = ({
                   </h4>
                 )}
               </div>
+
+              {/* Inside Vignette Charcoal Illustration */}
+              {puppyIll.enabled && (puppyIll.placement === 'inside' || puppyIll.placement === 'both') && (
+                <div className="my-2">
+                  <GothicPuppyIllustration
+                    illustration={puppyIll}
+                    context="vignette"
+                    partnerName={card.partnerName}
+                    letterTopic={card.title}
+                    isDarkTheme={isDarkTheme}
+                    isEditing={isEditingDirectly}
+                    onUpdateTitle={(title) => updatePuppyIllustration({ title })}
+                    onUpdateCaption={(caption) => updatePuppyIllustration({ caption })}
+                  />
+                </div>
+              )}
 
               {/* Letter Body */}
               <div className="space-y-4 my-2 flex-grow">
