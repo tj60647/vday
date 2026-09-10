@@ -1,0 +1,7 @@
+{
+  "name": "Valentine Card Letter Assistant",
+  "description": "An AI-powered writing assistant for crafting heartfelt, personalized Valentine's Day cards and love letters for your partner.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
